@@ -205,7 +205,7 @@ if ! command -v pyenv &> /dev/null
 then
   # 修改全局环境变量，使所有用户都能调用pyenv
   test -e /etc/profile.d/pyenv.sh && rm /etc/profile.d/pyenv.sh
-  echo "export PYENV_ROOT="$REAL_HOME/.pyenv"" > /etc/profile.d/pyenv.sh
+  echo "export PYENV_ROOT=\"$REAL_HOME/.pyenv\"" > /etc/profile.d/pyenv.sh
   echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /etc/profile.d/pyenv.sh
   echo 'eval "$(pyenv init --path)"' >> /etc/profile.d/pyenv.sh
 
