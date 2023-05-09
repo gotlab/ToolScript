@@ -96,17 +96,25 @@ $REAL_HOME/.pyenv/bin/pyenv global 3.10.10
 # 跟着最新版
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $REAL_HOME/stable-diffusion-webui
 
-# 使用指定分支，分支版本可以点仓库连接查看。和上面那个二选一，哪个不要哪个前面加#号
-#git clone -b v2.0 https://github.com/camenduru/stable-diffusion-webui $REAL_HOME/stable-diffusion-webui
+# 使用指定分支，分支版本可以点仓库连接查看。和上面那个二选一，哪个不要哪个前面加“#"号
 
+#git clone -b v2.1 https://github.com/camenduru/stable-diffusion-webui $REAL_HOME/stable-diffusion-webui/
+git clone https://huggingface.co/embed/negative $REAL_HOME/stable-diffusion-webui/embeddings/negative
+git clone https://huggingface.co/embed/lora $REAL_HOME/stable-diffusion-webui/models/Lora/positive
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/embed/upscale/resolve/main/4x-UltraSharp.pth -d $REAL_HOME/stable-diffusion-webui/models/ESRGAN -o 4x-UltraSharp.pth
 wget https://raw.githubusercontent.com/camenduru/stable-diffusion-webui-scripts/main/run_n_times.py -O $REAL_HOME/stable-diffusion-webui/scripts/run_n_times.py
 git clone https://github.com/deforum-art/deforum-for-automatic1111-webui $REAL_HOME/stable-diffusion-webui/extensions/deforum-for-automatic1111-webui
+
+# 稳定版(二选一),哪个不要哪个前面加“#"号
+# git clone https://github.com/camenduru/stable-diffusion-webui-images-browser $REAL_HOME/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
+# 激进版(二选一)哪个不要哪个前面加“#"号
 git clone https://github.com/AlUlkesh/stable-diffusion-webui-images-browser $REAL_HOME/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
+
 git clone https://github.com/camenduru/stable-diffusion-webui-huggingface $REAL_HOME/stable-diffusion-webui/extensions/stable-diffusion-webui-huggingface
 git clone https://github.com/camenduru/sd-civitai-browser $REAL_HOME/stable-diffusion-webui/extensions/sd-civitai-browser
 git clone https://github.com/kohya-ss/sd-webui-additional-networks $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-additional-networks
 git clone https://github.com/Mikubill/sd-webui-controlnet $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet
-git clone https://github.com/camenduru/openpose-editor $REAL_HOME/stable-diffusion-webui/extensions/openpose-editor
+git clone https://github.com/fkunn1326/openpose-editor $REAL_HOME/stable-diffusion-webui/extensions/openpose-editor
 git clone https://github.com/jexom/sd-webui-depth-lib $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-depth-lib
 git clone https://github.com/hnmr293/posex $REAL_HOME/stable-diffusion-webui/extensions/posex
 git clone https://github.com/camenduru/sd-webui-tunnels $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-tunnels
@@ -122,15 +130,14 @@ git clone https://github.com/butaixianran/Stable-Diffusion-Webui-Civitai-Helper 
 git clone https://github.com/KohakuBlueleaf/a1111-sd-webui-locon $REAL_HOME/stable-diffusion-webui/extensions/a1111-sd-webui-locon
 git clone https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 $REAL_HOME/stable-diffusion-webui/extensions/ultimate-upscale-for-automatic1111
 # 仅备注区分
-git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-tokenizer.git $REAL_HOME/stable-diffusion-webui/extensions/stable-diffusion-webui-tokenizer
-git clone https://github.com/KutsuyaYuki/ABG_extension.git $REAL_HOME/stable-diffusion-webui/extensions/ABG_extension
+git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-tokenizer $REAL_HOME/stable-diffusion-webui/extensions/stable-diffusion-webui-tokenizer
+git clone https://github.com/KutsuyaYuki/ABG_extension $REAL_HOME/stable-diffusion-webui/extensions/ABG_extension
 git clone https://github.com/klimaleksus/stable-diffusion-webui-anti-burn $REAL_HOME/stable-diffusion-webui/extensions/stable-diffusion-webui-anti-burn
-git clone https://github.com/jtydhr88/sd-3dmodel-loader.git $REAL_HOME/stable-diffusion-webui/extensions/sd-3dmodel-loader
-git clone https://github.com/vladmandic/sd-extension-system-info.git $REAL_HOME/stable-diffusion-webui/extensions/sd-extension-system-info
+git clone https://github.com/jtydhr88/sd-3dmodel-loader $REAL_HOME/stable-diffusion-webui/extensions/sd-3dmodel-loader
+git clone https://github.com/vladmandic/sd-extension-system-info $REAL_HOME/stable-diffusion-webui/extensions/sd-extension-system-info
 git clone https://github.com/journey-ad/sd-webui-bilingual-localization $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-bilingual-localization
-git clone https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator.git $REAL_HOME/stable-diffusion-webui/extensions/a1111-stable-diffusion-webui-vram-estimator
+git clone https://github.com/space-nuko/a1111-stable-diffusion-webui-vram-estimator $REAL_HOME/stable-diffusion-webui/extensions/a1111-stable-diffusion-webui-vram-estimator
 git clone https://github.com/hnmr293/sd-webui-llul $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-llul
-
 
 # 下载基础模型
 # chilloutmix_NiPrunedFp32Fix
@@ -149,29 +156,47 @@ fi
 
 
 # 下载ControlNet
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_canny-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_canny-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_depth-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_depth-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_hed-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_hed-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_mlsd-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_mlsd-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_normal-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_normal-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_openpose-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_openpose-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_scribble-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_scribble-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/control_seg-fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_seg-fp16.safetensors
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/hand_pose_model.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/openpose -o hand_pose_model.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/body_pose_model.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/openpose -o body_pose_model.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/dpt_hybrid-midas-501f0c75.pt -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/midas -o dpt_hybrid-midas-501f0c75.pt
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/mlsd_large_512_fp32.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/mlsd -o mlsd_large_512_fp32.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/mlsd_tiny_512_fp32.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/mlsd -o mlsd_tiny_512_fp32.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/network-bsds500.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/hed -o network-bsds500.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/upernet_global_small.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/annotator/uniformer -o upernet_global_small.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_style_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_style_sd14v1.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_sketch_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_sketch_sd14v1.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_seg_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_seg_sd14v1.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_openpose_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_openpose_sd14v1.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_keypose_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_keypose_sd14v1.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_depth_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_depth_sd14v1.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_color_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_color_sd14v1.pth
-aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet/resolve/main/t2iadapter_canny_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_canny_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_ip2p_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11e_sd15_shuffle_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11f1p_sd15_depth_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11f1p_sd15_depth_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_inpaint_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_inpaint_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_lineart_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_lineart_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_mlsd_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_mlsd_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_normalbae_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_normalbae_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_openpose_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_scribble_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_scribble_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_seg_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_seg_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15_softedge_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_softedge_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11p_sd15s2_lineart_anime_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15s2_lineart_anime_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/control_v11f1e_sd15_tile_fp16.safetensors -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11f1e_sd15_tile_fp16.safetensors
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11e_sd15_ip2p_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_ip2p_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11e_sd15_shuffle_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11e_sd15_shuffle_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_canny_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_canny_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1p_sd15_depth_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11f1p_sd15_depth_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_inpaint_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_inpaint_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_lineart_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_lineart_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_mlsd_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_mlsd_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_normalbae_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_normalbae_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_openpose_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_openpose_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_scribble_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_scribble_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_seg_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_seg_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15_softedge_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15_softedge_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11p_sd15s2_lineart_anime_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11p_sd15s2_lineart_anime_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1e_sd15_tile_fp16.yaml -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o control_v11f1e_sd15_tile_fp16.yaml
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_style_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_style_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_sketch_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_seg_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_seg_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_openpose_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_openpose_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_keypose_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_keypose_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_depth_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_color_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_color_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_canny_sd14v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_canny_sd14v1.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_canny_sd15v2.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_canny_sd15v2.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_depth_sd15v2.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_depth_sd15v2.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_sketch_sd15v2.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_sketch_sd15v2.pth
+aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/ckpt/ControlNet-v1-1/resolve/main/t2iadapter_zoedepth_sd15v1.pth -d $REAL_HOME/stable-diffusion-webui/extensions/sd-webui-controlnet/models -o t2iadapter_zoedepth_sd15v1.pth
+
 
 EOF
 
@@ -180,7 +205,7 @@ if ! command -v pyenv &> /dev/null
 then
   # 修改全局环境变量，使所有用户都能调用pyenv
   test -e /etc/profile.d/pyenv.sh && rm /etc/profile.d/pyenv.sh
-  echo "export PYENV_ROOT=\"$REAL_HOME/.pyenv\"" > /etc/profile.d/pyenv.sh
+  echo "export PYENV_ROOT="$REAL_HOME/.pyenv"" > /etc/profile.d/pyenv.sh
   echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /etc/profile.d/pyenv.sh
   echo 'eval "$(pyenv init --path)"' >> /etc/profile.d/pyenv.sh
 
@@ -203,3 +228,4 @@ exec $SHELL -l
 #============================
 # 准备SD Webui 结束
 #============================
+
